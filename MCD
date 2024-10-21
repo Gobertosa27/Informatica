@@ -1,0 +1,126 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b, k=0;
+    int conta=0, contb=0, num=1;
+    
+
+    cout<<"Inserisci due numeri interi positivi t.c. b>a>0: "<<endl;
+    do
+    {
+        cout<<"a=";
+        cin>>a;
+        if(a<0) cout<<"Ho detto a positivo!"<<endl;
+    } while (a<0);
+    
+     do
+    {
+        cout<<"b=";
+        cin>>b;
+        if(b<a) cout<<"Ho detto b>a!"<<endl;
+    } while (b<a);
+
+    cout<<"Ora troviamo il loro max comune divisore!"<<endl;
+    cout<<endl;
+    
+    cout<<"Per "<<a<<" abbiamo ";
+    while (num<=a)
+    {
+        if (a%num==0)
+        {
+            conta=conta+1;
+            num=num+1;
+        }
+        else num=num+1;   
+    }
+    cout<<conta<<" valori."<<endl;
+  
+    int v[conta];
+    num=1;
+    for(k=0; k<conta; k=k+1)
+    {
+        while(a%num!=0)
+        {
+            num=num+1;
+        }
+
+        v[k]=num;
+        cout<<"v["<<k+1<<"]="<<num<<", ";
+        num=num+1;
+        
+    }
+
+    cout<<endl;
+    cout<<endl;
+    cout<<"Per "<<b<<" abbiamo ";
+    num=1;
+    while (num<=b)
+    {
+        if (b%num==0)
+        {
+            contb=contb+1;
+            num=num+1;
+        }
+        else num=num+1;   
+    }
+    cout<<contb<<" valori."<<endl;
+  
+    int w[contb];
+    num=1;
+    for(k=0; k<contb; k=k+1)
+    {
+         while(b%num!=0)
+        {
+            num=num+1;
+        }
+        w[k]=num;
+        cout<<"v["<<k+1<<"]="<<num<<", ";
+        num=num+1;
+    }      
+    
+    cout<<endl;
+    cout<<endl;
+    cout<<"I fattori primi comuni tra loro sono: "<<endl;
+
+    int cont=0;
+    for ( k=0; k < contb; k=k+1)
+    {
+        for ( int j = 0; j < conta; j=j+1)
+        {
+             if (v[j]==w[k])
+            {
+                cont=cont+1;
+            }
+        }
+    }
+    
+    
+    int s[cont], val, y=0;
+ 
+    for ( int x=0; x<contb; x=x+1)
+    { 
+        for(int j=0; j<conta; j=j+1)
+        {
+            if (w[x]==v[j])
+            {
+                val=v[j];
+                s[y]=val;
+                cout<<"v["<<y+1<<"]="<<s[y]<<", ";
+                y=y+1;
+            }   
+        }
+    }   
+    
+    int prod=1;
+    for(k=0; k<cont; k++)
+    {
+        prod=prod*s[k];
+    }
+    cout<<endl;
+    cout<<"Ovvero: "<<prod;
+    
+    return 0;
+}
