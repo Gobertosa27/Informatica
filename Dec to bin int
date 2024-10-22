@@ -1,0 +1,49 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+    int  count=0, cont, div;
+    int val;
+
+    cout<<"inserisci un valore intero: ";
+    cin>>val;
+
+    cout<<"Ora lo convertiamo in binario"<<endl;
+    
+    div=val/2;
+    count=count+1;
+    while(div!=0)
+    {
+        div=div/2;
+        count=count+1;
+    }
+    float v[count];
+
+    div=val;
+    for(cont=0; cont<count; cont=cont+1)
+    {
+        if(div%2==0)
+        {
+            v[cont]=0;
+            cout<<"v["<<cont<<"]="<<v[cont]<<endl;
+        }
+        if(div%2==1)
+        {
+            v[cont]=1;
+            cout<<"v["<<cont<<"]="<<v[cont]<<endl;
+        }
+        div=div/2;
+    }
+
+    cout<<"Il numero binario di "<<val<<" e' : ";
+    for(cont=count-1; cont>=0; cont=cont-1)
+    {
+        cout<<v[cont];
+    }
+    cout<<endl;
+
+    return 0;
+}
