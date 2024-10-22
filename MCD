@@ -120,7 +120,7 @@ int main()
         prod=prod*s[k];
     }
     cout<<endl;
-    cout<<"Ovvero: "<<prod;
+    cout<<"Ovvero: "<<prod<<endl;
     
     return 0;
 }
