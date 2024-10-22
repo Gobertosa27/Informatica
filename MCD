@@ -20,8 +20,8 @@ int main()
     {
         cout<<"b=";
         cin>>b;
-        if(b<a) cout<<"Ho detto b>a!"<<endl;
-    } while (b<a);
+        if(b<=a) cout<<"Ho detto b>a!"<<endl;
+    } while (b<=a);
 
     cout<<"Ora troviamo il loro max comune divisore!"<<endl;
     cout<<endl;
@@ -114,13 +114,13 @@ int main()
         }
     }   
     
-    int prod=1;
+    int max;
     for(k=0; k<cont; k++)
     {
-        prod=prod*s[k];
+        if(s[k]>s[k-1]) max=s[k];
     }
     cout<<endl;
-    cout<<"Ovvero: "<<prod<<endl;
+    cout<<"Ovvero MCD: "<<max<<endl;
     
     return 0;
 }
