@@ -1,0 +1,54 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+    int nvett;
+
+    cout<<"Inserisci num di dati: N=";
+    cin>>nvett;
+
+    float v[nvett], media, somma=0;
+    cout<<"Inserire i dati (0, 20]:"<<endl;
+    for(int k=0; k<nvett; k=k+1)
+    {
+        do
+        {
+            cout<<"v["<<k+1<<"]=";
+            cin>>v[k];
+            if((v[k]<=0)||(v[k]>20)) cout<<"Riguarda la condizione!"<<endl;
+        }
+        while((v[k]<=0)||(v[k]>20));
+        somma=somma+v[k];
+    }
+    cout<<endl;
+
+    cout<<"Calcoliamo la media: ";
+    media=somma/nvett;
+    cout<<"<v>="<<somma<<"/"<<nvett<<"="<<media<<endl;
+
+    cout<<endl;
+    cout<<"Ora vediamo la dev. standar:"<<endl;
+
+    float sommaq[nvett];
+    for(int k=0; k<nvett; k=k+1)
+    {
+        sommaq[k]=pow(v[k]-media, 2);
+        cout<<"sommaq["<<k+1<<"]= "<<"("<<v[k]<<"-"<<media<<")^2= "<<sommaq[k]<<endl;
+    }
+
+    float sommat=0;
+    for (int k=0; k<nvett; k=k+1)
+    {
+        sommat=sommat+sommaq[k];
+    }
+    cout<<endl<<"Somma totale="<<sommat<<endl;
+
+    float devst;
+    devst=sqrt(sommat/nvett);
+    cout<<"sigmaC="<<devst<<endl;
+
+return 0;
+}
