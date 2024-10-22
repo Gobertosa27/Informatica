@@ -114,10 +114,13 @@ int main()
         }
     }   
     
+    cout<<endl;
     int max;
-    for(k=0; k<cont; k++)
+    for(k=cont-1; k>=0; k--)
     {
-        if(s[k]>s[k-1]) max=s[k];
+        if(k==cont-1) max=s[cont-1];
+        if((s[k]>s[k+1])&&(k!=cont-1)) max=s[k];
+        cout<<"max["<<k+1<<"]="<<max<<", ";
     }
     cout<<endl;
     cout<<"Ovvero MCD: "<<max<<endl;
