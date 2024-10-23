@@ -35,8 +35,7 @@ int main()
             {
               val=v[j];
               v[j]=v[k];
-              v[k]=val;
-              cout<<v[k]<<" e "<<v[j]<<endl;  
+              v[k]=val;  
             }
         }
         cout<<"v["<<k+1<<"]="<<v[k]<<", ";
