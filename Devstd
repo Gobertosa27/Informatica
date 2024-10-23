@@ -25,7 +25,25 @@ int main()
     }
     cout<<endl;
 
-    cout<<"Calcoliamo la media: ";
+    cout<<"Ora riordiniamoli!"<<endl;
+    float val;
+    for (int k=0; k<nvett; k=k+1)
+    {
+        for(int j=k; j<nvett; j=j+1)
+        {
+            if (v[j]<v[k])
+            {
+              val=v[j];
+              v[j]=v[k];
+              v[k]=val;
+              cout<<v[k]<<" e "<<v[j]<<endl;  
+            }
+        }
+        cout<<"v["<<k+1<<"]="<<v[k]<<", ";
+    }
+    
+
+    cout<<endl<<"Calcoliamo la media: ";
     media=somma/nvett;
     cout<<"<v>="<<somma<<"/"<<nvett<<"="<<media<<endl;
 
