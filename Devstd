@@ -59,7 +59,7 @@ int main()
     for(int k=0; k<nvett; k=k+1)
     {
         sommaq[k]=pow(v[k]-media, 2);
-        cout<<"sommaq["<<k+1<<"]= "<<"("<<v[k]<<"-"<<media<<")^2= "<<sommaq[k]<<endl;
+        cout<<"sommaq["<<k+1<<"]="<<"("<<v[k]<<"-"<<media<<")^2="<<sommaq[k]<<endl;
     }
 
     float sommat=0;
@@ -71,10 +71,10 @@ int main()
 
     float devst;
     devst=sqrt(sommat/nvett);
-    cout<<"La dev. st. e' :";
+    cout<<"La dev. st. e' : ";
     cout<<"sigmaC="<<devst<<endl;
 
-    cout<<"La varianza e' :";
+    cout<<"La varianza e' : ";
     float var;
     var=mediaq-pow(media, 2);
     cout<<"(sigmaC)^2="<<var;
