@@ -7,44 +7,50 @@ int main()
 {
     int nvett;
 
-    cout<<"Inserisci num di dati: N=";
+    cout<<"Inserisci num di dati:"<<endl;
+    cout<<"N=";
     cin>>nvett;
 
-    float v[nvett], media, somma=0;
-    cout<<"Inserire i dati (0, 20]:"<<endl;
+    float v[nvett], media, mediaq, somma=0, sommaquadrati=0;
+    cout<<"Inserire i dati t.c. v[k]>=0 :"<<endl;
     for(int k=0; k<nvett; k=k+1)
     {
         do
         {
             cout<<"v["<<k+1<<"]=";
             cin>>v[k];
-            if((v[k]<=0)||(v[k]>20)) cout<<"Riguarda la condizione!"<<endl;
+            if(v[k]<=0) cout<<"Riguarda la condizione!"<<endl;
         }
-        while((v[k]<=0)||(v[k]>20));
+        while(v[k]<=0);
         somma=somma+v[k];
+        sommaquadrati=sommaquadrati+pow(v[k], 2);
     }
     cout<<endl;
 
-    cout<<"Ora riordiniamoli!"<<endl;
+    cout<<"Ora riordiniamoli!"<<endl;//Ordinamento dati inseriti in oridine crescente!
     float val;
-    for (int k=0; k<nvett; k=k+1)
+    for (int k=0; k<nvett; k=k+1)//Fisso primo termine
     {
-        for(int j=k; j<nvett; j=j+1)
+        for(int j=k; j<nvett; j=j+1)//Confronto con lo stesso e termini successivi
         {
-            if (v[j]<v[k])
+            if (v[j]<v[k])//Scambio continuo di posto finchè non venga preso il piu piccolo tra quelli successivi
             {
               val=v[j];
               v[j]=v[k];
               v[k]=val;  
             }
         }
-        cout<<"v["<<k+1<<"]="<<v[k]<<", ";
+        cout<<"v["<<k+1<<"]="<<v[k]<<endl;
     }
     
 
     cout<<endl<<"Calcoliamo la media: ";
     media=somma/nvett;
     cout<<"<v>="<<somma<<"/"<<nvett<<"="<<media<<endl;
+
+    cout<<endl<<"Calcoliamo la media quadratica: ";
+    mediaq=sommaquadrati/nvett;
+    cout<<"<(v)^2>="<<sommaquadrati<<"/"<<nvett<<"="<<mediaq<<endl;
 
     cout<<endl;
     cout<<"Ora vediamo la dev. standar:"<<endl;
@@ -65,7 +71,13 @@ int main()
 
     float devst;
     devst=sqrt(sommat/nvett);
+    cout<<"La dev. st. e' :";
     cout<<"sigmaC="<<devst<<endl;
+
+    cout<<"La varianza e' :";
+    float var;
+    var=mediaq-pow(media, 2);
+    cout<<"(sigmaC)^2="<<var;
 
 return 0;
 }
