@@ -12,16 +12,12 @@ int main()
     cin>>nvett;
 
     float v[nvett], media, mediaq, somma=0, sommaquadrati=0;
-    cout<<"Inserire i dati t.c. v[k]>=0 :"<<endl;
+    cout<<"Inserire i dati:"<<endl;
     for(int k=0; k<nvett; k=k+1)
     {
-        do
-        {
-            cout<<"v["<<k+1<<"]=";
-            cin>>v[k];
-            if(v[k]<=0) cout<<"Riguarda la condizione!"<<endl;
-        }
-        while(v[k]<=0);
+      
+        cout<<"v["<<k+1<<"]=";
+        cin>>v[k];
         somma=somma+v[k];
         sommaquadrati=sommaquadrati+pow(v[k], 2);
     }
@@ -70,11 +66,33 @@ int main()
     cout<<endl<<"Somma totale="<<sommat<<endl;
 
     float devst;
-    devst=sqrt(sommat/nvett);
+    devst=sqrt(sommat/(nvett-1));
     cout<<"La dev. st. e' : ";
     cout<<"sigmaC="<<devst<<endl;
 
-    cout<<"La varianza e' : ";
+    cout<<"I valori corretti ";
+    int cont=0, j=0;
+    for(int k=0; k<nvett; k=k+1)
+    {
+        if(fabs(v[k]-media)<=3*devst) cont=cont+1;
+    }
+    cout<<"sono "<<cont<<" perche':"<<endl;
+    float w[cont];
+    for(int k=0; k<nvett; k=k+1)
+    {
+        if(fabs(v[k]-media)<=3*devst)
+        {
+            float val;
+            val=v[k];
+            w[j]=val;
+            cout<<"w["<<k+1<<"]="<<w[k]<<", cioe' ";
+            cout<<"|"<<v[k]<<"-"<<media<<"|<=3*"<<devst<<endl;
+            j=j+1;
+        }
+    }
+
+    cout<<endl;
+    cout<<"La varianza e': ";
     float var;
     var=mediaq-pow(media, 2);
     cout<<"(sigmaC)^2="<<var<<endl;
