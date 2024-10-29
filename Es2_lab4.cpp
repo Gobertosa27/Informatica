@@ -10,8 +10,13 @@ int main()
 {
     int max, size;
     
-    cout<<"Inserisci il numero max di valori che vuoi inserire: ";
-    cin>>max;
+    do
+    {
+        cout<<"Inserisci il numero max di valori che vuoi inserire: ";
+        cin>>max;
+        if(max<=0) cout<<"Ma vaffanculo va!"<<endl;
+    }
+    while(max<=0);
     float valori[max], a, b;
 
     cout<<"Inserisci estremi [a,b]:"<<endl;
