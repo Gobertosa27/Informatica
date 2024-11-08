@@ -28,8 +28,13 @@ int main()
     }
 
     int newdim, ind;
-    cout<<"Scegli la posizione dell'el. da cui far partire lo spostamento: ind=";
-    cin>>ind;
+    
+    do{
+        cout<<"Scegli la posizione dell'el. da cui far partire lo spostamento: ind=";
+        cin>>ind;
+        if((ind<0)||(ind>n)) cout<<"Indice fuori range! Scegli correttamente!"<<endl;
+    }
+    while((ind<0)||(ind>n));
     
    do
    {
