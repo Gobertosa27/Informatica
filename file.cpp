@@ -3,8 +3,12 @@
 #include <fstream>//ricordati di questo!
 using namespace std;
 
-int minimo(int v[], int);
-int massimo(int v[], int);
+int minimo(int [], int);
+int massimo(int [], int);
+int min_range(int [], int, int);
+void ordinamento(int [], int);
+void swap( int [], int, int);
+
 
 int main ()
 {
@@ -61,39 +65,52 @@ int main ()
     int min;
     min=minimo(dati, dati_used);
     cout<<"Il min e': "<<min<<endl;
-    int count=0;
+    int count=0, posmin;
     for(int k=0; k<dati_used; k=k+1)
     {
        if(dati[k]==min) 
        {
         if(count==0) 
         {
-            cout<<"In posizione "<<k;
+            posmin=k;
+            cout<<"In posizione "<<posmin;
             count=count+1;
         }
-        else cout<<", "<<k;  
+        else 
+        {
+            posmin=k;
+            cout<<", "<<posmin;
+        }  
        }
     }
 
     cout<<endl;
     //ricerca max
-    int max;
+    int max, posmax;
     max=massimo(dati, dati_used);
     cout<<"Il max e': "<<max<<endl;
     count=0;
-    for(int k=0; k<dati_used; k=k+1)
+     for(int k=0; k<dati_used; k=k+1)
     {
        if(dati[k]==max) 
        {
         if(count==0) 
         {
-            cout<<"In posizione "<<k;
+            posmax=k;
+            cout<<"In posizione "<<posmax;
             count=count+1;
         }
-        else cout<<", "<<k;  
+        else 
+        {
+            posmax=k;
+            cout<<", "<<posmax;
+        }  
        }
     }
     cout<<endl;
+
+    //ordinamento
+    ordinamento(dati, dati_used);
     return 0;
 }
 
@@ -108,6 +125,21 @@ int minimo(int v[], int dim)
     return min;
 }
 
+int min_range(int v[], int j, int dim)
+{
+    int min;
+    min=v[j];
+    for(int k=j; k<dim; k=k+1)
+    {
+       if(v[k]<min) 
+       {
+            min=v[k];
+            swap(v, k, j); 
+        }
+    }
+    return min;
+}
+
 int massimo(int v[], int dim)
 {
     int max;
@@ -117,4 +149,25 @@ int massimo(int v[], int dim)
        if(v[k]>max) max=v[k]; 
     }
     return max;
+}
+
+void ordinamento(int v[], int dim)
+{
+    cout<<"Vettore ordinato:"<<endl;
+    int min;
+    for(int k=0; k<dim; k=k+1)
+    {
+        min=min_range(v, k, dim);
+        v[k]=min;
+        cout<<"v["<<k<<"]="<<v[k]<<endl;
+    }
+
+}
+
+void swap(int v[], int k, int posmin)
+{
+    int aus;
+    aus=v[k];
+    v[k]=v[posmin];
+    v[posmin]=aus;
 }
