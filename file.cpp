@@ -12,7 +12,7 @@ void swap( int [], int, int);
 
 int main ()
 {
-    int dati[10], dato, conta=0;
+    int dato, conta=0;
     ifstream flusso_in; 
     flusso_in.open("dati_int.dat");
     
@@ -22,7 +22,27 @@ int main ()
         return -1;
     }
 
-    for(int k=0; k<10; k=k+1)
+    while(!flusso_in.eof())
+    {
+        flusso_in >> dato;
+        conta=conta+1;
+    }
+
+    cout<<endl<<"Sono presenti "<<conta<<" dati interi"<<endl; 
+
+    flusso_in.close();//chiudo per dichiarare il vettore all'infuori del file
+
+    int dati[conta];
+
+    flusso_in.open("dati_int.dat");//riapro il file per l'assegnamento
+    
+    if(flusso_in.fail())
+    {
+        cout<<endl<<"Qualcosa e' andato storto! Esco!"<<endl;
+        return -1;
+    }
+
+    for(int k=0; k<conta; k=k+1)
     {
         flusso_in>>dati[k];//sarebbe il cin dei fle. I valori, al posto di essere
         //assegnati da tastiera, vengono assegnati da quelli dei file
@@ -30,50 +50,27 @@ int main ()
     
     flusso_in.close();
 
-    //Riapro file
-    flusso_in.open("dati_int.dat");
-
-    flusso_in >> dato;
-    
-    if(flusso_in.fail())
-    {
-        cout<<endl<<"Qualcosa e' andato storto! Esco!"<<endl;
-        return -1;
-    }
-    
-    while(!flusso_in.eof())
-    {
-        flusso_in >> dato;
-        conta=conta+1;
-    }
-
-    cout<<endl<<"Sono presenti "<<conta<<" dati interi"<<endl;
-
-    int dati_used;
-    dati_used=conta;
-
     cout<<"Vettore ha:";
 
-    for(int k=0; k<dati_used; k=k+1)
+    for(int k=0; k<conta; k=k+1)
     {
         cout<<endl<<dati[k];
     }
     cout<<endl;
-    flusso_in.close();
 
     //ricerca min
     int min;
-    min=minimo(dati, dati_used);
-    cout<<"Il min e': "<<min<<endl;
+    min=minimo(dati, conta);
+    cout<<"Il min e': "<<min<<" ";
     int count=0, posmin;
-    for(int k=0; k<dati_used; k=k+1)
+    for(int k=0; k<conta; k=k+1)
     {
        if(dati[k]==min) 
        {
         if(count==0) 
         {
             posmin=k;
-            cout<<"In posizione "<<posmin;
+            cout<<"in posizione "<<posmin;
             count=count+1;
         }
         else 
@@ -87,17 +84,17 @@ int main ()
     cout<<endl;
     //ricerca max
     int max, posmax;
-    max=massimo(dati, dati_used);
-    cout<<"Il max e': "<<max<<endl;
+    max=massimo(dati, conta);
+    cout<<"Il max e': "<<max<<" ";
     count=0;
-     for(int k=0; k<dati_used; k=k+1)
+     for(int k=0; k<conta; k=k+1)
     {
        if(dati[k]==max) 
        {
         if(count==0) 
         {
             posmax=k;
-            cout<<"In posizione "<<posmax;
+            cout<<"in posizione "<<posmax;
             count=count+1;
         }
         else 
@@ -110,24 +107,25 @@ int main ()
     cout<<endl;
 
     //ordinamento
-    ordinamento(dati, dati_used);
+    ordinamento(dati, conta);
 
     //output file
     ofstream flusso_out;
-    flusso_out.open("dati_int.dat");
+    flusso_out.open("new_dati.dat");
 
     if(flusso_out.fail())
     {
         cout<<endl<<"Qualcosa e' andato storto! Esco!"<<endl;
         return -1;
     }
-    else cout<<"File correttamente sovrascritto!"<<endl;
 
-    for(int k=0; k<dati_used; k=k+1)
+    for(int k=0; k<conta; k=k+1)
     {
         flusso_out<<dati[k]<<endl;
     }
 
+    cout<<"File correttamente sovrascritto nel nuovo file!"<<endl;
+    
     flusso_out.close();
 
 
