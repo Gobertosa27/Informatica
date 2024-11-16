@@ -111,6 +111,26 @@ int main ()
 
     //ordinamento
     ordinamento(dati, dati_used);
+
+    //output file
+    ofstream flusso_out;
+    flusso_out.open("dati_int.dat");
+
+    if(flusso_out.fail())
+    {
+        cout<<endl<<"Qualcosa e' andato storto! Esco!"<<endl;
+        return -1;
+    }
+    else cout<<"File correttamente sovrascritto!"<<endl;
+
+    for(int k=0; k<dati_used; k=k+1)
+    {
+        flusso_out<<dati[k]<<endl;
+    }
+
+    flusso_out.close();
+
+
     return 0;
 }
 
@@ -164,10 +184,10 @@ void ordinamento(int v[], int dim)
 
 }
 
-void swap(int v[], int k, int posmin)
+void swap(int v[], int posmin, int posiniz)
 {
     int aus;
-    aus=v[k];
-    v[k]=v[posmin];
+    aus=v[posiniz];
+    v[posiniz]=v[posmin];
     v[posmin]=aus;
 }
