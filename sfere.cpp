@@ -155,7 +155,7 @@ int main()
        sommaq=sommaq+pow(diam[i]-media, 2);
     }
     
-    devst=sqrt((sommaq)/color_right);
+    devst=sqrt((sommaq)/(color_right-1));
 
     cout<<endl<<"Le sfere di colore "<<scelta<<" hanno media="<<media;
     cout<<" e dev. st.="<<devst<<endl;
