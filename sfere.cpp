@@ -129,30 +129,40 @@ int main()
         }
     }
 
+    float *newdiam;
+    char *newcolor;
+    newdiam=new float[color_right];
+    newcolor= new char[color_right];
+
+     for(int i=0; i<color_right; i=i+1)
+    {
+        newdiam[i]=diam[i];
+        newcolor[i]=color[i];
+    }
+
+    delete [] diam;
+    diam=NULL;
+    delete [] color;
+    color=NULL;
+
     cout<<endl<<"Le sfere di colore "<<scelta<<" sono in totale: ";
     cout<<color_right<<endl;
     for(int i=0; i<color_right; i=i+1)
     {
-        cout<<"Sfera "<<i<<") d="<<diam[i]<<" e colore="<<color[i]<<endl;
+        cout<<"Sfera "<<i<<") d="<<newdiam[i]<<" e colore="<<newcolor[i]<<endl;
     }
-
-    cout<<endl<<"Le altre sfere invece: "<<endl;
-   for(int i=color_right; i<ndati; i=i+1)
-    {
-        cout<<"Sfera "<<i<<") d="<<diam[i]<<" e colore="<<color[i]<<endl;
-    }
-
+    
     float media, somma=0;
     for(int i=0; i<color_right; i=i+1)
     {
-       somma=somma+diam[i];
+       somma=somma+newdiam[i];
     }
     media=somma/color_right;
 
     float devst, sommaq=0;
     for(int i=0; i<color_right; i=i+1)
     {
-       sommaq=sommaq+pow(diam[i]-media, 2);
+       sommaq=sommaq+pow(newdiam[i]-media, 2);
     }
     
     devst=sqrt((sommaq)/(color_right-1));
@@ -170,18 +180,17 @@ int main()
    
     for(int i=0; i<color_right; i=i+1)
     {
-        flusso_out<<diam[i]<<"\t"<<color[i]<<endl;
+        flusso_out<<newdiam[i]<<"\t"<<newcolor[i]<<endl;
     }
 
     flusso_out<<endl<<media<<"\t"<<devst<<endl;
 
     flusso_out.close();
 
-    delete [] diam;
-    diam=NULL;
-    delete [] color;
-    color=NULL;
+    delete [] newdiam;
+    newdiam=NULL;
+    delete [] newcolor;
+    newcolor=NULL;
 
     return 0; 
 }
-
