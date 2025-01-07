@@ -15,6 +15,8 @@ struct traiettoria
 
 using namespace std;
 
+punto move(punto start, traiettoria c);
+
 int main()
 {
     punto *p=NULL;
@@ -63,6 +65,7 @@ int main()
 
     cout<<endl<<"Caricamento traiettorie"<<endl;
     int conta=0;
+    int min, max, lunghezza;
     
     flussoin.open("traiettorie.dat");
 
@@ -72,24 +75,38 @@ int main()
         return -1;
     }
 
+    int minimo, massimo;
     while(!flussoin.eof())
     {
+        if (!(flussoin>>lunghezza))
+            break;
+        cout<<lunghezza<<": ";
+
         flussoin>>tr.t;
-        cout<<tr.t<<": ";
-        tr.T=new char[tr.t];
-        for(int k=0; k<tr.t; k++)
+        lunghezza=tr.t;
+        if (conta == 0 || lunghezza > massimo)
+            massimo = lunghezza;
+        if (conta == 0 || lunghezza < minimo)
+            minimo = lunghezza;
+        tr.T = new char[lunghezza];
+        for(int k=0; k<lunghezza; k++)
         {
             flussoin>>tr.T[k];
             cout<<tr.T[k]<<", ";
         }
         conta++;
         cout<<endl;
-    }
-    conta=conta-1; //eof conta un el. in piu
-    
-    cout<<"Abbiamo "<<conta<<" traiettorie"<<endl;
-    flussoin.close();
 
+        // use tr
+
+        delete[] tr.T; //evito di sovraccaricare l'array
+        tr.T=NULL;
+    }
+    
+    cout<<"Abbiamo "<<conta<<" traiettorie ";
+    cout<<"con min="<<min<<" e max="<<max<<endl;
+    flussoin.close();
+    
     flussoin.open("traiettorie.dat");
 
     if(flussoin.fail())
@@ -98,21 +115,8 @@ int main()
         return -1;
     }
 
-    traiettoria *tray;
-    tray=new traiettoria[conta];
-    for(int k=0; k<conta; k++)
-    {
-        flussoin>>tray[k].t;
-        cout<<tray[k].t<<": ";
-        tray[k].T=new traiettoria[k]
-        for(int j=0; j<tray[k].t ; j++)
-        {
-            flussoin>>tray[k].T[j];
-            cout<<tray[k].T[j]<<", ";
-        }
-        cout<<endl;
-    }
-    flussoin.close();
+    
+    punto.arrivo=move(punto.p0, punto)
 
-
+    return 0;
 }
