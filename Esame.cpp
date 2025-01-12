@@ -66,7 +66,7 @@ int main()
 
     cout<<endl<<"Caricamento traiettorie"<<endl;
     int conta=0;
-    int min, max, lunghezza;
+    int lunghezza;
     
     flussoin.open("traiettorie.dat");
 
@@ -105,7 +105,7 @@ int main()
     }
     
     cout<<"Abbiamo "<<conta<<" traiettorie ";
-    cout<<"con min="<<min<<" e max="<<max<<endl;
+    cout<<"con min="<<minimo<<" e max="<<massimo<<endl;
     flussoin.close();
     
     traiettoria *tray=NULL;
