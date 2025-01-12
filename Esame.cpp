@@ -22,6 +22,7 @@ int main()
     punto *p=NULL;
     traiettoria tr;
     int n=0, dato;
+    
     ifstream flussoin;   
     flussoin.open("punti.dat");
 
@@ -107,6 +108,9 @@ int main()
     cout<<"con min="<<min<<" e max="<<max<<endl;
     flussoin.close();
     
+    traiettoria *tray=NULL;
+    tray=new traiettoria[conta];
+
     flussoin.open("traiettorie.dat");
 
     if(flussoin.fail())
@@ -115,8 +119,86 @@ int main()
         return -1;
     }
 
-    
-    punto.arrivo=move(punto.p0, punto)
+    int scelta;
+    punto p0;
+    traiettoria c;
+    do
+    {
+        cout<<"Inserisci il punto che ti interessa p[0,"<<n<<"] :";
+        cin>>scelta;
+    } while (scelta<0 || scelta>n-1);
+    p0=p[scelta];
 
+    int k=0;
+    while(!flussoin.eof())
+    {
+        if (!(flussoin>>lunghezza))
+            break;
+        cout<<lunghezza<<": ";
+
+        flussoin>>tr.t;
+        tray[k].t=tr.t;
+        lunghezza=tr.t;
+        tray[k].T = new char[lunghezza];
+        for(int j=0; j<lunghezza; j++)
+        {
+            flussoin>>tray[k].T[j];
+            cout<<tray[k].T[j]<<", ";
+        }
+        cout<<endl;
+        k++;
+    }
+
+     do
+    {
+        cout<<"Inserisci la traiettoria che ti interessa t[0,"<<k<<"] :";
+        cin>>scelta;
+    } while (scelta<0 || scelta>k-1);
+    c=tray[scelta];
+    
+    punto arrivo=move(p0, c);
+
+    flussoin.close();
+    delete [] p;
+    p=NULL;
+    delete [] tray;
+    tray=NULL;
     return 0;
+}
+
+punto move(punto start, traiettoria c)
+{
+    punto nuovo_punto;
+    nuovo_punto.x=start.x;
+    nuovo_punto.y=start.y;
+    cout<<"Punto iniziale: p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+    for (int  k=0; k<c.t; k++)
+    {
+        if(c.T[k]=='W')
+        {
+            cout<<"Spostamento verso ovest: ";
+            nuovo_punto.x=nuovo_punto.x-1;
+            cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+        }
+        if(c.T[k]=='N')
+        {
+            cout<<"Spostamento verso nord: ";
+            nuovo_punto.y=nuovo_punto.y+1;
+            cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+        }
+        if(c.T[k]=='E')
+        {
+            cout<<"Spostamento verso est: ";
+            nuovo_punto.x=nuovo_punto.x+1;
+            cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+        }
+        if(c.T[k]=='S')
+        {
+            cout<<"Spostamento verso sud: ";
+            nuovo_punto.y=nuovo_punto.y-1;
+            cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+        }
+        if((c.T[k]!='W')&&(c.T[k]!='N')&&(c.T[k]!='E')&&(c.T[k]!='S')) cout<<"Indicazione non valida!!"<<endl;
+    }
+    return nuovo_punto;
 }
