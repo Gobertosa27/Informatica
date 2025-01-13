@@ -179,23 +179,27 @@ int main()
     bool esito;
     
     q=num_first_quad(R, r, c);
+    cout<<endl<<" IN TOTALE il numero di droni nel 1-quadr e' "<<q<<endl;
+    cout<<endl;
+
     for(int k=0; k<r; k++)
     {
         punto p0=R[k];
         traiettoria c0=c[k];
         for(int j=k+1; j<r; j++)
         {
-            if(j!=r-1)
+            if(j<r)
             {
+                cout<<endl<<"Drone "<<k<<" collide con drone "<<j<<"?"<<endl;
                 punto p1=R[j];
-                traiettoria t1=c[j];
+                traiettoria c1=c[j];
                 bool esito;
-                esito=collision(p0, p1, t0, t1);
+                esito=collision(p0, p1, c0, c1);
+                if(esito==true) cout<<endl<<"Yes, drone "<<k<<" collide con drone "<<j<<"!!"<<endl;
+                else cout<<endl<<"No, drone "<<k<<" NON collide con drone "<<j<<"!!"<<endl;
             }    
         }
     }
-    
-    cout<<endl<<"Il numero di droni nel 1-quadr e' "<<q<<endl;
 
     flussoin.close();
     
@@ -222,32 +226,36 @@ punto move(punto start, traiettoria c)
         if(c.T[k]=='W')
         {
             cout<<"Mossa "<<k<<": ";
-            cout<<"Spostamento verso ovest: ";
+            cout<<"Spostamento W: ";
             nuovo_punto.x=nuovo_punto.x-1;
             cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
         }
         if(c.T[k]=='N')
         {
             cout<<"Mossa "<<k<<": ";
-            cout<<"Spostamento verso nord: ";
+            cout<<"Spostamento N: ";
             nuovo_punto.y=nuovo_punto.y+1;
             cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
         }
         if(c.T[k]=='E')
         {
             cout<<"Mossa "<<k<<": ";
-            cout<<"Spostamento verso est: ";
+            cout<<"Spostamento E: ";
             nuovo_punto.x=nuovo_punto.x+1;
             cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
         }
         if(c.T[k]=='S')
         {
             cout<<"Mossa "<<k<<": ";
-            cout<<"Spostamento verso sud: ";
+            cout<<"Spostamento S: ";
             nuovo_punto.y=nuovo_punto.y-1;
             cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
         }
-        if((c.T[k]!='W')&&(c.T[k]!='N')&&(c.T[k]!='E')&&(c.T[k]!='S')) cout<<"Mossa "<<k<<": indicazione non valida!!"<<endl;
+        if((c.T[k]!='W')&&(c.T[k]!='N')&&(c.T[k]!='E')&&(c.T[k]!='S')) 
+        {
+            cout<<"Mossa "<<k<<" errata: ";
+            cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+        }
     }
     return nuovo_punto;
 }
@@ -259,9 +267,10 @@ int num_first_quad(punto *R, int r, traiettoria *c)
     traiettoria c0;
     for(int k=0; k<r; k++)
     {
-        cout<<endl<<"Inizio spostamento per drone "<<k<<")"<<endl;
+        cout<<endl<<"Inizio spostamento per drone "<<k<<") con ";
         p0=R[k];
         c0=c[k];
+        cout<<c0.t<<" spostamenti"<<endl;
         R[k]=move(p0, c0);
         if(R[k].x>0 && R[k].y>0) 
         {
@@ -273,55 +282,101 @@ int num_first_quad(punto *R, int r, traiettoria *c)
     return conta;
 }
 
-bool collision( punto p, punto q, traiettoria Cp, traiettoria Cq );
+bool collision( punto p, punto q, traiettoria Cp, traiettoria Cq )
 {
-    punto p1;
-    punto p2;
     int k=0, j=0;
-    l_1=Cp.t;
-    l_2=Cq.t;
-    if(p==q) return true;
-    while(k<l_1 && j<l_2)
+    cout<<"p0=("<<p.x<<","<<p.y<<") ";
+    cout<<"con "<<Cp.t<<" spostamenti"<<endl;
+    cout<<"q0=("<<q.x<<","<<q.y<<") ";
+    cout<<"con "<<Cq.t<<" spostamenti"<<endl;
+    if((p.x==q.x)&&(p.y==q.y)) 
     {
-    
-            if((Cp.T[k]=='W')||(Cq.T[j]=="W"))
-            {
-                if(Cp.T[k]=='W') 
-                {
-                    p.x=p.x-1;
-                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
-                }
-                if(Cq.T[k]=='W') 
-                {
-                    p.x=p.x-1;
-                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
-                }
-            }
-            if(c.T[k]=='N')
-            {
-                cout<<"Mossa "<<k<<": ";
-                cout<<"Spostamento verso nord: ";
-                nuovo_punto.y=nuovo_punto.y+1;
-                cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
-            }
-            if(c.T[k]=='E')
-            {
-                cout<<"Mossa "<<k<<": ";
-                cout<<"Spostamento verso est: ";
-                nuovo_punto.x=nuovo_punto.x+1;
-                cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
-            }
-            if(c.T[k]=='S')
-            {
-                cout<<"Mossa "<<k<<": ";
-                cout<<"Spostamento verso sud: ";
-                nuovo_punto.y=nuovo_punto.y-1;
-                cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
-            }
-            if((c.T[k]!='W')&&(c.T[k]!='N')&&(c.T[k]!='E')&&(c.T[k]!='S')) cout<<"Mossa "<<k<<": indicazione non valida!!"<<endl;
-            
-         k++;
-         j++;
+        cout<<"Collisione immediata!"<<endl;
+        return true;
     }
-
+    while(k<Cp.t || j<Cq.t)
+    {
+        cout<<endl;
+        if(k<Cp.t)
+        {
+            cout<<k<<") ";
+            if(Cp.T[k]=='W') 
+                {
+                    p.x=p.x-1;
+                    cout<<"W: ";
+                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
+                }
+            
+            if(Cp.T[k]=='N') 
+                {
+                    p.y=p.y+1;
+                    cout<<"N: ";
+                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
+                }
+            if(Cp.T[k]=='E') 
+                {
+                    p.x=p.x+1;
+                    cout<<"E: ";
+                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
+                }
+            if(Cp.T[k]=='S') 
+                {
+                    p.y=p.y-1;
+                    cout<<"S: ";
+                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
+                }
+            if((Cp.T[k]!='W')&&(Cp.T[k]!='N')&&(Cp.T[k]!='E')&&(Cp.T[k]!='S'))
+            {
+                cout<<"Error: ";
+                cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
+            }
+            k++;
+        }
+        else cout<<"fine) p=("<<p.x<<","<<p.y<<")"<<endl;
+        
+        if(j<Cq.t)
+        {
+            cout<<j<<") ";
+            if(Cq.T[j]=='W') 
+                {
+                    q.x=q.x-1;
+                    cout<<"W: ";
+                    cout<<"q=("<<q.x<<","<<q.y<<")"<<endl;
+                }
+            
+            if(Cq.T[j]=='N') 
+                {
+                    q.y=q.y+1;
+                    cout<<"N: ";
+                    cout<<"q=("<<q.x<<","<<q.y<<")"<<endl;
+                }
+            if(Cq.T[j]=='E') 
+                {
+                    q.x=q.x+1;
+                    cout<<"E: ";
+                    cout<<"q=("<<q.x<<","<<q.y<<")"<<endl;
+                }
+            if(Cq.T[j]=='S') 
+                {
+                    q.y=q.y-1;
+                    cout<<"S: ";
+                    cout<<"q=("<<q.x<<","<<q.y<<")"<<endl;
+                }
+            if((Cq.T[j]!='W')&&(Cq.T[j]!='N')&&(Cq.T[j]!='E')&&(Cq.T[j]!='S'))
+                {
+                    cout<<"Error: ";
+                    cout<<"q=("<<q.x<<","<<q.y<<")"<<endl;
+                }
+            j++;
+        }
+        else cout<<"fine) q=("<<q.x<<","<<q.y<<")"<<endl;
+        
+        if((p.x==q.x)&&(p.y==q.y)) 
+            {
+                cout<<"Collisione dopo "<<k<<" spost. del primo drone e "<<j<<" spost. del secondo"<<endl;
+                return true;
+            }
+    }
+    cout<<endl<<"Niente da segn."<<endl;
+    return false;
 }
