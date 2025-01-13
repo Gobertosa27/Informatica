@@ -24,6 +24,7 @@ int main()
     int n=0, dato;
     
     ifstream flussoin;   
+    
     flussoin.open("punti.dat");
 
     if(flussoin.fail())
@@ -64,7 +65,6 @@ int main()
         cout<<"Punto "<<k<<") ("<<p[k].x<<","<<p[k].y<<")"<<endl;
     }
 
-    cout<<endl<<"Caricamento traiettorie: "<<endl;
     int conta=0;
     int lunghezza;
     
@@ -76,31 +76,25 @@ int main()
         return -1;
     }
 
-    int minimo, massimo;
-    while(!flussoin.eof())
+    int minimo=0, massimo=0;
+    while(!flussoin.eof())//conta tray
     {
-        if (!(flussoin>>lunghezza))
+        flussoin>>lunghezza;
+        if (flussoin.fail())
             break;
-        cout<<lunghezza<<": ";
-
-        flussoin>>tr.t;
-        lunghezza=tr.t;
+        tr.t=lunghezza;
+        tr.T=new char[tr.t];
         if (conta == 0 || lunghezza > massimo)
             massimo = lunghezza;
         if (conta == 0 || lunghezza < minimo)
             minimo = lunghezza;
-        tr.T = new char[lunghezza];
+        // tr.T = new char[tr.t];
         for(int k=0; k<lunghezza; k++)
         {
             flussoin>>tr.T[k];
-            cout<<tr.T[k]<<", ";
         }
         conta++;
-        cout<<endl;
-
-        // use tr
-
-        delete[] tr.T; //evito di sovraccaricare l'array
+        delete [] tr.T;
         tr.T=NULL;
     }
     
@@ -124,7 +118,7 @@ int main()
     traiettoria c;
     do
     {
-        cout<<"Inserisci il punto che ti interessa p[0,"<<n<<"] :";
+        cout<<"Inserisci il punto che ti interessa p[0,"<<n-1<<"]: ";
         cin>>scelta;
     } while (scelta<0 || scelta>n-1);
     p0=p[scelta];
@@ -132,13 +126,14 @@ int main()
     int k=0;
     while(!flussoin.eof())
     {
-        if (!(flussoin>>lunghezza))
+        
+         flussoin>>lunghezza;
+        if (flussoin.fail())
             break;
-        cout<<lunghezza<<": ";
+        cout<<"Traiettroia "<<k<<") "<<lunghezza<<": ";
 
-        flussoin>>tr.t;
+        tr.t=lunghezza;
         tray[k].t=tr.t;
-        lunghezza=tr.t;
         tray[k].T = new char[lunghezza];
         for(int j=0; j<lunghezza; j++)
         {
@@ -151,12 +146,13 @@ int main()
 
      do
     {
-        cout<<"Inserisci la traiettoria che ti interessa t[0,"<<k<<"] :";
+        cout<<"Inserisci la traiettoria che ti interessa t[0,"<<k-1<<"]: ";
         cin>>scelta;
     } while (scelta<0 || scelta>k-1);
     c=tray[scelta];
     
     punto arrivo=move(p0, c);
+    
 
     flussoin.close();
     delete [] p;
