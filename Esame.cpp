@@ -172,6 +172,7 @@ int main()
             cin>>scelta;
         } 
         while (scelta<0 || scelta>k-1);
+        //select[j]=scelta;
         c[j]=tray[scelta];
     }
 
