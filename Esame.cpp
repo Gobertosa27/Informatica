@@ -64,7 +64,7 @@ int main()
         cout<<"Punto "<<k<<") ("<<p[k].x<<","<<p[k].y<<")"<<endl;
     }
 
-    cout<<endl<<"Caricamento traiettorie"<<endl;
+    cout<<endl<<"Caricamento traiettorie: "<<endl;
     int conta=0;
     int lunghezza;
     
