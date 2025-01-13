@@ -272,3 +272,56 @@ int num_first_quad(punto *R, int r, traiettoria *c)
     }
     return conta;
 }
+
+bool collision( punto p, punto q, traiettoria Cp, traiettoria Cq );
+{
+    punto p1;
+    punto p2;
+    int k=0, j=0;
+    l_1=Cp.t;
+    l_2=Cq.t;
+    if(p==q) return true;
+    while(k<l_1 && j<l_2)
+    {
+    
+            if((Cp.T[k]=='W')||(Cq.T[j]=="W"))
+            {
+                if(Cp.T[k]=='W') 
+                {
+                    p.x=p.x-1;
+                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
+                }
+                if(Cq.T[k]=='W') 
+                {
+                    p.x=p.x-1;
+                    cout<<"p=("<<p.x<<","<<p.y<<")"<<endl;
+                }
+            }
+            if(c.T[k]=='N')
+            {
+                cout<<"Mossa "<<k<<": ";
+                cout<<"Spostamento verso nord: ";
+                nuovo_punto.y=nuovo_punto.y+1;
+                cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+            }
+            if(c.T[k]=='E')
+            {
+                cout<<"Mossa "<<k<<": ";
+                cout<<"Spostamento verso est: ";
+                nuovo_punto.x=nuovo_punto.x+1;
+                cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+            }
+            if(c.T[k]=='S')
+            {
+                cout<<"Mossa "<<k<<": ";
+                cout<<"Spostamento verso sud: ";
+                nuovo_punto.y=nuovo_punto.y-1;
+                cout<<"p=("<<nuovo_punto.x<<","<<nuovo_punto.y<<")"<<endl;
+            }
+            if((c.T[k]!='W')&&(c.T[k]!='N')&&(c.T[k]!='E')&&(c.T[k]!='S')) cout<<"Mossa "<<k<<": indicazione non valida!!"<<endl;
+            
+         k++;
+         j++;
+    }
+
+}
