@@ -176,12 +176,14 @@ int main()
     }
 
     int q;
-    bool esito;
+    
     
     q=num_first_quad(R, r, c);
     cout<<endl<<"IN TOTALE il numero di droni nel 1-quadr e' "<<q<<endl;
     cout<<endl;
-
+    
+    bool esito;
+    int count=0;
     for(int k=0; k<r; k++)
     {
         punto p0=R[k];
@@ -195,13 +197,35 @@ int main()
                 traiettoria c1=c[j];
                 bool esito;
                 esito=collision(p0, p1, c0, c1);
-                if(esito==true) cout<<endl<<"Yes, drone "<<k<<" collide con drone "<<j<<"!!"<<endl;
+                if(esito==true) 
+                {
+                    cout<<endl<<"Yes, drone "<<k<<" collide con drone "<<j<<"!!"<<endl;
+                    count++;
+                }
                 else cout<<endl<<"No, drone "<<k<<" NON collide con drone "<<j<<"!!"<<endl;
             }    
         }
     }
 
     flussoin.close();
+
+    ofstream flussout;
+
+    flussout.open("risultati.dat");
+
+    if(flussout.fail())
+    {
+        cout<<"errore apertura file!"<<endl;
+        return -1;
+    }
+
+    flussout<<"Numero di droni:"<<r<<endl;
+    flussout<<"Numero di droni sul primo quadr.:"<<q<<endl;
+    flussout<<"Traiettorie num:"<<conta<<endl;
+    flussout<<"Num collisioni:"<<count<<endl;
+
+    flussout.close();
+
     
     delete [] p;
     p=NULL;
