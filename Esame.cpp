@@ -104,10 +104,10 @@ int main()
     traiettoria *tray=NULL;
     tray=new traiettoria[conta];
     
-    int r;
+    int r, scelta;
+    int *select;
     punto *R=NULL;
     traiettoria *c=NULL;
-    int scelta;
 
     flussoin.open("traiettorie.dat");
 
@@ -126,6 +126,7 @@ int main()
 
     R=new punto[r];
     c=new traiettoria[r];
+    select=new int[r];
 
     cout<<"Inserisci le posizioni iniziali dei droni p[0,"<<n-1<<"]: "<<endl;
     for(int k=0; k<r; k++)
@@ -172,7 +173,7 @@ int main()
             cin>>scelta;
         } 
         while (scelta<0 || scelta>k-1);
-        //select[j]=scelta;
+        select[j]=scelta;
         c[j]=tray[scelta];
     }
 
@@ -180,7 +181,7 @@ int main()
     bool esito;
     
     q=num_first_quad(R, r, c);
-    cout<<endl<<" IN TOTALE il numero di droni nel 1-quadr e' "<<q<<endl;
+    cout<<endl<<"IN TOTALE il numero di droni nel 1-quadr e' "<<q<<endl;
     cout<<endl;
 
     for(int k=0; k<r; k++)
@@ -191,7 +192,7 @@ int main()
         {
             if(j<r)
             {
-                cout<<endl<<"Drone "<<k<<" collide con drone "<<j<<"?"<<endl;
+                cout<<endl<<"Drone "<<k<<" (tray "<<select[k]<<") collide con drone "<<j<<" (tray"<<select[j]<<")?"<<endl;
                 punto p1=R[j];
                 traiettoria c1=c[j];
                 bool esito;
@@ -212,6 +213,8 @@ int main()
     R=NULL;
     delete [] c;
     c=NULL;
+    delete [] select;
+    select=NULL;
 
     return 0;
 }
