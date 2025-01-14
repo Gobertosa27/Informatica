@@ -161,6 +161,7 @@ int main()
     for(int j=0; j<n; j++)
     {
         int m=k-1;
+        int scelta;
         cout<<"Drone "<<j<<") tray=";
         scelta=rand()%m;
         cout<<scelta<<endl; 
@@ -171,7 +172,7 @@ int main()
     int q;
     
     
-    q=num_first_quad(R, r, c);
+    q=num_first_quad(R, n, c);
     cout<<endl<<"IN TOTALE il numero di droni nel 1-quadr e' "<<q<<endl;
     cout<<endl;
     
@@ -212,7 +213,7 @@ int main()
         return -1;
     }
 
-    flussout<<"Numero di droni:"<<r<<endl;
+    flussout<<"Numero di droni:"<<n<<endl;
     flussout<<"Numero di droni sul primo quadr.:"<<q<<endl;
     flussout<<"Traiettorie num:"<<conta<<endl;
     flussout<<"Num collisioni:"<<count<<endl;
