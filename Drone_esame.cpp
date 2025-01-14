@@ -126,6 +126,8 @@ int main()
     R=new punto[n];
     c=new traiettoria[conta];
     select=new int[n];
+
+    cout<<"Inserisci le posizioni iniziali dei droni p[0,"<<n-1<<"]: "<<endl;
     for(int k=0; k<n; k++)
     {
         R[k]=p[k];
