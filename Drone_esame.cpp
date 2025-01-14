@@ -184,20 +184,18 @@ int main()
         traiettoria c0=c[k];
         for(int j=k+1; j<n; j++)
         {
-            if(j<n)
+            
+            cout<<endl<<"Drone "<<k<<" (tray "<<select[k]<<") collide con drone "<<j<<" (tray"<<select[j]<<")?"<<endl;
+            punto p1=R[j];
+            traiettoria c1=c[j];
+            bool esito;
+            esito=collision(p0, p1, c0, c1);
+            if(esito==true) 
             {
-                cout<<endl<<"Drone "<<k<<" (tray "<<select[k]<<") collide con drone "<<j<<" (tray"<<select[j]<<")?"<<endl;
-                punto p1=R[j];
-                traiettoria c1=c[j];
-                bool esito;
-                esito=collision(p0, p1, c0, c1);
-                if(esito==true) 
-                {
-                    cout<<endl<<"Yes, drone "<<k<<" collide con drone "<<j<<"!!"<<endl;
-                    count++;
-                }
-                else cout<<endl<<"No, drone "<<k<<" NON collide con drone "<<j<<"!!"<<endl;
-            }    
+                cout<<endl<<"Yes, drone "<<k<<" collide con drone "<<j<<"!!"<<endl;
+                count++;
+            }
+            else cout<<endl<<"No, drone "<<k<<" NON collide con drone "<<j<<"!!"<<endl;    
         }
     }
 
