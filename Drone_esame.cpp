@@ -124,7 +124,7 @@ int main()
     cout<<n<<endl;
 
     R=new punto[n];
-    c=new traiettoria[conta];
+    c=new traiettoria[n];
     select=new int[n];
 
     cout<<"Inserisci le posizioni iniziali dei droni p[0,"<<n-1<<"]: "<<endl;
@@ -170,7 +170,6 @@ int main()
     }
 
     int q;
-    
     
     q=num_first_quad(R, n, c);
     cout<<endl<<"IN TOTALE il numero di droni nel 1-quadr e' "<<q<<endl;
@@ -285,7 +284,7 @@ int num_first_quad(punto *R, int r, traiettoria *c)
     traiettoria c0;
     for(int k=0; k<r; k++)
     {
-        cout<<endl<<"Inizio spostamento per drone "<<k<<") con ";
+        cout<<endl<<"Inizio spostamento per drone "<<k<<" con ";
         p0=R[k];
         c0=c[k];
         cout<<c0.t<<" spostamenti"<<endl;
