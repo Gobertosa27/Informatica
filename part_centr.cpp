@@ -9,6 +9,7 @@ struct centro
     int x;
     int y;
     float m;
+    int count=0;
 };
 
 struct particella
@@ -16,6 +17,8 @@ struct particella
     float x;
     float y;
     float m;
+    float minimo;
+    int corr;//corrispondenza sfera
 };
 
 void shorter(centro *, particella *, int, int);
@@ -133,33 +136,55 @@ int main ()
 
     shorter(c_array, p_array, n_centri, n_particelle);
 
+    delete [] c_array;
+    c_array=NULL;
+    delete [] p_array;
+    p_array=NULL;
     return 0;
 
 }
 
 void shorter(centro *c, particella *p, int n_c, int n_p)
 {
-    float lunghezza, minimo;
-    int c_corrispondente;
+    float lunghezza;
 
     for(int k=0; k<n_p; k++)    
-    {
-        cout<<"Per particella "<<k<<") il centro piu vicino e' centro: "<<endl;
+    {   
+        cout<<"Per particella "<<k<<") il centro piu vicino e' centro: ";
+        
         for(int j=0; j<n_c; j++)
         {
             lunghezza=sqrt(pow(p[k].x-c[j].x, 2)+pow(p[k].y-c[j].y, 2));
+            cout<<"c["<<j<<"]="<<lunghezza<<endl;
             if(j==0)
             {
-                minimo=lunghezza;
-                c_corrispondente=j;
+                p[k].minimo=lunghezza;
+                p[k].corr=j;
             }
-            if(lunghezza<minimo) 
+            if(lunghezza<p[k].minimo) 
             {
-                minimo=lunghezza;
-                c_corrispondente=j;
+                p[k].minimo=lunghezza;
+                p[k].corr=j;
             }
-            cout<<""
+             
         }
-        cout<<c_corrispondente<<")"<<endl;
+        c[p[k].corr].count=c[p[k].corr].count+1;
+        cout<<"--> c["<<p[k].corr<<"]="<<p[k].minimo<<endl;
+    }
+
+    cout<<endl;
+
+    for(int k=0; k<n_c; k++)
+    {
+        cout<<endl<<"Centro "<<k<<": ("<<c[k].x<<", "<<c[k].y<<", "<<c[k].m<<") ";
+        int count=c[k].count;
+        cout<<"con "<<count<<" occorrenze"<<endl;
+        for(int j=0; j<n_p; j++)
+        {
+            if(p[j].corr==k) 
+            {
+                cout<<"Particella "<<j<<": ("<<p[j].x<<", "<<p[j].y<<", "<<p[j].m<<", "<<p[j].minimo<<")"<<endl;
+            }
+        }
     }
 }
