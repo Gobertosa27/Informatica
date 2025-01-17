@@ -25,6 +25,8 @@ void shorter(centro *, particella *, int, int);
 
 int cdm(centro *, int );
 
+int massimo(centro *, particella *, int, int);
+
 int main ()
 {
     centro c;
@@ -138,7 +140,11 @@ int main ()
 
     shorter(c_array, p_array, n_centri, n_particelle);
 
-    int 
+    int k_max;
+
+    k_max=massimo(c_array, p_array, n_centri, n_particelle);
+    
+    cout<<"Il centro con piu particelle e' c["<<k_max<<"]"<<endl;
 
     delete [] c_array;
     c_array=NULL;
@@ -151,7 +157,6 @@ int main ()
 void shorter(centro *c, particella *p, int n_c, int n_p)
 {
     float lunghezza;
-
     for(int k=0; k<n_p; k++)    
     {   
         cout<<"Per particella "<<k<<") il centro piu vicino e' centro: ";
@@ -181,8 +186,7 @@ void shorter(centro *c, particella *p, int n_c, int n_p)
     for(int k=0; k<n_c; k++)
     {
         cout<<endl<<"Centro "<<k<<": ("<<c[k].x<<", "<<c[k].y<<", "<<c[k].m<<") ";
-        int count=c[k].count;
-        cout<<"con "<<count<<" occorrenze"<<endl;
+        cout<<"con "<<c[k].count<<" occorrenze"<<endl;
         for(int j=0; j<n_p; j++)
         {
             if(p[j].corr==k) 
@@ -191,20 +195,43 @@ void shorter(centro *c, particella *p, int n_c, int n_p)
             }
         }
     }
+}
 
-    int max=0, k_max;
+int massimo(centro *c, particella *p, int n_c, int n_p)
+{
+    int max_el=0, k_max;
     for(int k=0; k<n_c; k++)
     {
-        if(k==0 || c[k].count>max) 
+        if(k==0 || c[k].count>max_el) 
         {
-            max=c[k].count;
+            max_el=c[k].count;
             k_max=k;
         }
     }
-    cout<<"Il centro con piu particelle e' c["<<k_max<<"] con "<<max<<" parti."<<endl;
-}
-
-int cdm(centro *c, int n_c)
-{
-
+    cout<<endl<<"Il centro con piu particelle e' c["<<k_max<<"] con "<<max_el<<" part."<<endl;
+    int conta=0;
+    for(int j=0; j<n_p; j++)
+    {
+        cout<<conta<<endl;
+        if(conta<max_el)
+        {
+            while(p[j].corr!=k_max) j++;
+        
+            for(int k=j+1; k<n_p; k++)
+            {
+                while(p[k].corr!=k_max) k++; 
+                if(p[k].minimo < p[j].minimo)
+                {
+                    particella part;
+                    part=p[j];
+                    p[j]=p[k];
+                    p[k]=part;
+                }
+            }
+            conta++;
+        }
+        cout<<"Particella "<<j<<": ("<<p[j].x<<", "<<p[j].y<<", "<<p[j].m<<", "<<p[j].minimo<<")"<<endl;
+    }
+    
+    return k_max;
 }
