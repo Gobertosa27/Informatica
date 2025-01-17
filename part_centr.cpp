@@ -23,6 +23,8 @@ struct particella
 
 void shorter(centro *, particella *, int, int);
 
+int cdm(centro *, int );
+
 int main ()
 {
     centro c;
@@ -136,6 +138,8 @@ int main ()
 
     shorter(c_array, p_array, n_centri, n_particelle);
 
+    int 
+
     delete [] c_array;
     c_array=NULL;
     delete [] p_array;
@@ -187,4 +191,20 @@ void shorter(centro *c, particella *p, int n_c, int n_p)
             }
         }
     }
+
+    int max=0, k_max;
+    for(int k=0; k<n_c; k++)
+    {
+        if(k==0 || c[k].count>max) 
+        {
+            max=c[k].count;
+            k_max=k;
+        }
+    }
+    cout<<"Il centro con piu particelle e' c["<<k_max<<"] con "<<max<<" parti."<<endl;
+}
+
+int cdm(centro *c, int n_c)
+{
+
 }
